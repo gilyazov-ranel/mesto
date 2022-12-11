@@ -1,0 +1,24 @@
+.info__title {
+    margin: 0;
+    padding: 0;
+    max-width: 294px;
+    margin-right: 18px;
+    font-weight: 500;
+    font-size: 42px;
+    line-height: 48px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+@media (max-width: 700px) {
+    .info__title {
+        text-align: center;
+        max-width: 100%;
+        font-size: 27px;
+        line-height: 33px;
+        margin-right: 10px;
+        margin-left: 28px;
+    }
+}
+
