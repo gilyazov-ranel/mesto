@@ -1,4 +1,4 @@
-.info {
+.profile__info {
     margin: 0;
     padding: 0;
     display: flex;
@@ -8,7 +8,7 @@
 }
 
 @media (max-width: 700px) {
-    .info {
+    .profile__info {
         max-width: 282px;
         text-align: center;
         justify-content: center;

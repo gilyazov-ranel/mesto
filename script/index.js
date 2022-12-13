@@ -1,34 +1,30 @@
-let popupOpened = document.querySelector('.popup');
-let editingProfile = document.querySelector('.info__button');
-let popupClose = document.querySelector('.popup__close');
-let formElement = document.querySelector('.popup__container')
-let nameInput = popupOpened.querySelector('.popup__name');
-let jobInput = popupOpened.querySelector('.popup__job');
-let buttonSave = document.querySelector('.popup__button');
-let nameInfo = document.querySelector('.info__title');
-let jobInfo = document.querySelector('.info__subtitle');
+const popup = document.querySelector('.popup');
+const editingProfile = document.querySelector('.profile__info-button');
+const popupClose = document.querySelector('.popup__close');
+const formElement = document.querySelector('.popup__form');
+const nameInput = formElement.querySelector('.popup__text_name');
+const jobInput = formElement.querySelector('.popup__text_job');
+const nameInfo = document.querySelector('.profile__title');
+const jobInfo = document.querySelector('.profile__subtitle');
 
 function editingProfileClick() {
-    popupOpened.classList.add('popup__opened');
-};
-
-function buttonClick() {
-    popupOpened.classList.remove('popup__opened');
-    function handleFormSubmit(evt) {
-        evt.preventDefault();
-        nameInfo.textContent = nameInput.value;
-        jobInfo.textContent = jobInput.value;
-    };
-    formElement.addEventListener('submit', handleFormSubmit);
-};
-
-function buttonCloseClick(e) {
-    e.preventDefault();
-    popupOpened.classList.remove('popup__opened');
+    popup.classList.add('popup_opened');
     nameInput.value = nameInfo.textContent;
     jobInput.value = jobInfo.textContent;
 };
 
-buttonSave.addEventListener('click', buttonClick);
-popupClose.addEventListener('click', buttonCloseClick);
+function buttonClose() {
+    popup.classList.remove('popup_opened');
+};
+
+function handleFormSubmit(evt) {
+    evt.preventDefault();
+    nameInfo.textContent = nameInput.value;
+    jobInfo.textContent = jobInput.value;
+    console.log(1);
+    buttonClose();
+};
+
+popupClose.addEventListener('click', buttonClose);
 editingProfile.addEventListener('click', editingProfileClick);
+formElement.addEventListener('submit', handleFormSubmit);

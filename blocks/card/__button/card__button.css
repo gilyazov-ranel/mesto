@@ -1,4 +1,4 @@
-.group__button {
+.card__button {
     margin: 0;
     padding: 0;
     background-image: url(../../../image/like.svg);
@@ -10,9 +10,9 @@
     height: 19px;
     margin-right: 6px;
     cursor: pointer;
-    background-color: #FFFFFF;
+    background-color: rgba(0, 0, 0, 0);
 }
 
-.group__button:hover {
-    opacity: 0.8;
+.card__button:hover {
+    opacity: 0.6;
 }

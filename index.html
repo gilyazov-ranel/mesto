@@ -10,68 +10,59 @@
 
 <body class="page">
     <header class="header">
-        <img class="header__logo" src="./image/logo_mesto.jpg" alt="Логотип Места России">
+        <img class="header__logo" src="./image/logo_mesto.svg" alt="Логотип Места России">
     </header>
     <main class="main">
         <section class="profile">
             <img class="profile__avatar" src="./image/avatar.jpg" alt="Жак-Ив Кусто">
-            <div class="info">
-                <h1 class="info__title">Жак-Ив Кусто</h1>
-                <button class="info__button"></button>
-                <p class="info__subtitle">Исследователь океана</p>
+            <div class="profile__info">
+                <h1 class="profile__title">Жак-Ив Кусто</h1>
+                <button class="profile__info-button" type="button" aria-label></button>
+                <p class="profile__subtitle">Исследователь океана</p>
             </div>
-            <button class="profile__button"></button>
+            <button class="profile__button" type="button" aria-label></button>
         </section>
-        <div class="popup">
-            <form class="popup__container">
-                <button class="popup__close"></button>
-                <h2 class="popup__title">Редактировать профиль</h2>
-                <input type="text" class="popup__name" value="Жак-Ив Кусто">
-                <input type="text" class="popup__job" value="Иследователь океана">
-                <button class="popup__button">Сохранить</button>
-            </form>
-        </div>
         <section class="cards">
             <article class="card">
                 <img class="card__image" src="./image/carachaevsk.jpg" alt="Старинный храм">
-                <div class="group">
-                    <h2 class="group__title">Карачаевск</h2>
-                    <button class="group__button"></button>
+                <div class="card__group">
+                    <h2 class="card__title">Карачаевск</h2>
+                    <button class="card__button" type="button" aria-label></button>
                 </div>
             </article>
             <article class="card">
                 <img class="card__image" src="./image/elbrus.jpg" alt="Величественный Эльбрус">
-                <div class="group">
-                    <h2 class="group__title">Гора Эльбрус</h2>
-                    <button class="group__button"></button>
+                <div class="card__group">
+                    <h2 class="card__title">Гора Эльбру</h2>
+                    <button class="card__button" type="button" aria-label></button>
                 </div>
             </article>
             <article class="card">
                 <img class="card__image" src="./image/dombay.jpg" alt="Прекрассный Домбай">
-                <div class="group">
-                    <h2 class="group__title">Домбай</h2>
-                    <button class="group__button"></button>
+                <div class="card__group">
+                    <h2 class="card__title">Домбай</h2>
+                    <button class="card__button" type="button" aria-label></button>
                 </div>
             </article>
             <article class="card">
                 <img class="card__image" src="./image/elbrus.jpg" alt="Величественный Эльбрус">
-                <div class="group">
-                    <h2 class="group__title">Гора Эльбрус</h2>
-                    <button class="group__button"></button>
+                <div class="card__group">
+                    <h2 class="card__title">Гора Эльбру</h2>
+                    <button class="card__button" type="button" aria-label></button>
                 </div>
             </article>
             <article class="card">
                 <img class="card__image" src="./image/dombay.jpg" alt="Прекрассный Домбай">
-                <div class="group">
-                    <h2 class="group__title">Домбай</h2>
-                    <button class="group__button"></button>
+                <div class="card__group">
+                    <h2 class="card__title">Домбай</h2>
+                    <button class="card__button" type="button" aria-label></button>
                 </div>
             </article>
             <article class="card">
                 <img class="card__image" src="./image/carachaevsk.jpg" alt="Старинный храм">
-                <div class="group">
-                    <h2 class="group__title">Карачаевск-Черкессия</h2>
-                    <button class="group__button"></button>
+                <div class="card__group">
+                    <h2 class="card__title">Карачаевск-Черкессия</h2>
+                    <button class="card__button" type="button" aria-label></button>
                 </div>
             </article>
         </section>
@@ -79,6 +70,19 @@
     <footer class="footer">
         <p class="footer__title">&copy;2020 Mesto Russia</p>
     </footer>
+    <div class="popup">
+        <div class="popup__container">
+            <button class="popup__close" type="reset"></button>
+            <h2 class="popup__title">Редактировать профиль</h2>
+            <form class="popup__form" name="form">
+                <input type="text" class="popup__text popup__text_name" value="Жак-Ив Кусто" name="formName" placeholder
+                    required>
+                <input type="text" class="popup__text popup__text_job" value="Иследователь океана" name="formJob"
+                    placeholder required>
+                <input type="submit" class="popup__button" value="Сохранить" name="buttonForm">
+            </form>
+        </div>
+    </div>
     <script src="./script/index.js"></script>
 </body>
 

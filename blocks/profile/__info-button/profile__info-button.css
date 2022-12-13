@@ -1,5 +1,5 @@
-.info__button {
-    background-color: #000000;
+.profile__info-button {
+    background-color: rgba(0, 0, 0, 0);
     background-image: url(../../../image/edit_button.svg);
     background-repeat: no-repeat;
     background-size: contain;
@@ -12,12 +12,12 @@
     cursor: pointer;
 }
 
-.info__button:hover {
-    opacity: 0.5;
+.profile__info-button:hover {
+    opacity: 0.6;
 }
 
 @media (max-width: 700px) {
-    .info__button {
+    .profile__info-button {
         object-fit: cover;
         width: 18px;
         height: 18px;
