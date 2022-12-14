@@ -3,7 +3,6 @@
     padding: 0;
     display: grid;
     grid-template-columns: repeat(3, minmax(min-content, max-content));
-    grid-template-rows: repeat(auto-fil, minmax(min-content, max-content));
     justify-items: center;
     max-width: 880px;
     gap: 20px 17px;
@@ -15,13 +14,11 @@
         margin-left: auto;
         margin-right: auto;
         grid-template-columns: repeat(2, 1fr);
-        grid-template-rows: repeat(auto-fil, 1fr);
     }
 }
 
 @media (max-width: 620px) {
     .cards {
         grid-template-columns: repeat(1, 1fr);
-        grid-template-rows: repeat(auto-fil, 1fr);
     }
 }
