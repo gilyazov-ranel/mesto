@@ -4,6 +4,7 @@
     display: grid;
     grid-template-columns: repeat(3, minmax(min-content, max-content));
     justify-items: center;
+    
     max-width: 880px;
     gap: 20px 17px;
 }

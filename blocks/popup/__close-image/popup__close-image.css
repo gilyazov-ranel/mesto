@@ -1,9 +1,9 @@
-.popup__close {
+.popup__close-image {
     margin: 0;
     padding: 0;
     position: absolute;
     top: -48px;
-    left: 438px;
+    right: -40px;
     width: 32px;
     height: 32px;
     background-image: url(../../../image/popup__close.svg);
@@ -15,22 +15,15 @@
     cursor: pointer;
 }
 
-.popup__close:hover {
+.popup__close-image:hover {
     opacity: 0.6;
 }
 
 @media (max-width: 600px) {
-    .popup__close {
+    .popup__close-image {
         top: -36px;
-        left: 262px;
+        right: 0;
         width: 20px;
         height: 20px;
     }
 }
-
-
-
-
-
-
-
