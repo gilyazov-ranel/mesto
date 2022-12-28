@@ -4,9 +4,3 @@
     position: relative;
     max-width: 75vw;
 }
-
-@media (max-width: 600px) {
-    .popup__container-image {
-        width: 282px;
-    }
-}
