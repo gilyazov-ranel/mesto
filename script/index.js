@@ -55,13 +55,12 @@ const initialCards = [
   }
 ];
 
-function newCards(card) { //функция добавление карточки
+function insertCards(card) { //функция добавление карточки
   const cardElement = cardTemplate.querySelector('.card').cloneNode(true);
   cardElement.querySelector('.card__image').src = card.link;
   cardElement.querySelector('.card__image').alt = card.name;
   cardElement.querySelector('.card__title').textContent = card.name;
-  createCard(cardElement);
-  
+ 
   getCard(cardElement);
 
   return cardElement;
@@ -69,26 +68,26 @@ function newCards(card) { //функция добавление карточки
 
 function renderCards(cards) { //функция добавления карточки из массива
   cards.reverse().forEach(item => {
-    const newCard = newCards(item);
+    const newCard = insertCards(item);
     createCard(newCard);
   });
 };
 
 function addCard(evt) { //функция добавления новой карточки
   evt.preventDefault();
-  const newCard = newCards({
+  const newCard = insertCards({
     name: mestoInput.value,
     link: linkInput.value
   });
   formElementMesto.reset();
   createCard(newCard);
+  
   closePopup(popupMesto);
 };
 
-function createCard(item) { //функция вставки карточки
-  cardsElement.prepend(item);
-  return item;
-}
+function createCard(card) { //функция вставки карточки
+  cardsElement.prepend(card);
+};
 
 function openPopap(element) { //функция открытия popup
   element.classList.add('popup_opened');
@@ -98,7 +97,7 @@ function closePopup(element) { //функция закрытия popup
   element.classList.remove('popup_opened');
 };
 
-function activeLike(event) { //функция активации Like
+function activateLike(event) { //функция активации Like
   event.target.classList.toggle('card__button_active');
 }
 
@@ -108,7 +107,7 @@ function deleteCard(event) { //функция удаления карточки
 
 function getCard(card) {
   const likeButton = card.querySelector('.card__button');// активация лайка
-  likeButton.addEventListener('click', activeLike);
+  likeButton.addEventListener('click', activateLike);
 
   const deleteButton = card.querySelector('.card__delete'); //удаление карточки
   deleteButton.addEventListener('click', deleteCard);
@@ -117,6 +116,7 @@ function getCard(card) {
   const openImageTitle = card.querySelector('.card__title');
   openImages.addEventListener('click', () => {
     imagePreview.src = openImages.src;
+    imagePreview.alt = openImages.src;
     imageTitle.textContent = openImageTitle.textContent;
     openPopap(openedImage);
   });
