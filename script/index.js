@@ -19,7 +19,7 @@ const openedImage = document.querySelector('.popup_image');
 const imagePreview = openedImage.querySelector('.popup__open-image');
 const imageTitle = openedImage.querySelector('.popup__image-title');
 
-const closeButtons = document.querySelectorAll('.popup__close');
+const closeButtons = document.querySelectorAll('.popup');
 
 function handleFormSubmit(evt) {
   evt.preventDefault();
@@ -60,7 +60,7 @@ function insertCards(card) { //функция добавление карточ�
   cardElement.querySelector('.card__image').src = card.link;
   cardElement.querySelector('.card__image').alt = card.name;
   cardElement.querySelector('.card__title').textContent = card.name;
- 
+
   getCard(cardElement);
 
   return cardElement;
@@ -81,7 +81,7 @@ function addCard(evt) { //функция добавления новой кар�
   });
   formElementMesto.reset();
   createCard(newCard);
-  
+
   closePopup(popupMesto);
 };
 
@@ -90,10 +90,12 @@ function createCard(card) { //функция вставки карточки
 };
 
 function openPopap(element) { //функция открытия popup
+  document.addEventListener('keyup', closingKey);
   element.classList.add('popup_opened');
 };
 
 function closePopup(element) { //функция закрытия popup
+  document.removeEventListener('keyup', closingKey);
   element.classList.remove('popup_opened');
 };
 
@@ -134,9 +136,86 @@ addingCard.addEventListener('click', () => { //открываем popup "Доб�
 
 closeButtons.forEach(item => { //закрытие popup
   const popup = item.closest('.popup');
-  item.addEventListener('click', () => closePopup(popup));
+  item.addEventListener('click', (evt) => {
+    if (evt.target.classList.contains('popup__close') || evt.target.classList.contains('popup')) {
+      closePopup(popup);
+    }
+  });
 });
+
+function closingKey(evt) { //закрытие popup по клавише "Escape"
+  const activePopup = document.querySelector('.popup_opened');
+  if (evt.key === "Escape") {
+    closePopup(activePopup);
+  };
+};
 
 formElement.addEventListener('submit', handleFormSubmit);
 formElementMesto.addEventListener('submit', addCard);
 renderCards(initialCards);
+
+function showInputError(formElement, inputElement, errrorMessage) {
+  const formError = formElement.querySelector(`.${inputElement.id}-error`);
+  inputElement.classList.add('popup__input_type_error');
+  formError.classList.add('popup__input-error_type_active');
+
+  if (inputElement.validity.typeMismatch) {
+    formError.textContent = "Введите адрес сайта."
+  } else if (inputElement.value.length === 1) {
+    formError.textContent = errrorMessage;
+  } else {
+    formError.textContent = "Вы пропустили это поле."
+  };
+};
+
+function hideInputError(formElement, inputElement) {
+  const formError = formElement.querySelector(`.${inputElement.id}-error`);
+  inputElement.classList.remove('popup__input_type_error');
+  formError.classList.remove('popup__input-error_type_active');
+};
+
+function isValid(formElement, inputElement) {
+  if (!inputElement.validity.valid) {
+    showInputError(formElement, inputElement, inputElement.validationMessage);
+  } else {
+    hideInputError(formElement, inputElement);
+  };
+};
+
+function setEventListeners(formElement) {
+  const inputList = Array.from(formElement.querySelectorAll('.popup__input'));
+  const buttonElement = formElement.querySelector('.popup__button');
+
+  
+  inputList.forEach((inputElement) => {
+    toggleButtonState(inputList, buttonElement);
+    inputElement.addEventListener('input', () => {
+      isValid(formElement, inputElement);
+      toggleButtonState(inputList, buttonElement);
+    });
+  });
+  
+};
+
+function enableValidation() {
+  const formList = Array.from(document.querySelectorAll('.popup'));
+  formList.forEach((formElement) => {
+    setEventListeners(formElement);
+  });
+};
+
+enableValidation();
+
+function hasInvalidInput(inputList) {
+  return inputList.some((inputElement) => {
+    return !inputElement.validity.valid;
+  });
+};
+
+function toggleButtonState(inputList, buttonElement) {
+  if (hasInvalidInput(inputList)) {
+    buttonElement.classList.add('popup__button_inactive');
+  } else {
+    buttonElement.classList.remove('popup__button_inactive');
+  };
+};
