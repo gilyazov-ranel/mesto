@@ -6,6 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Места России</title>
     <link rel="stylesheet" href="./pages/index.css">
+    <script src="./script/constants.js" defer></script>
+    <script src="./script/index.js" defer></script>
+    <script src="./script/validate.js" defer></script>
 </head>
 
 <body class="page">
@@ -45,10 +48,10 @@
             <h2 class="popup__title">Редактировать профиль</h2>
             <form class="popup__form" name="form" novalidate>
                 <input id="name-input" type="text" class="popup__input popup__input_text_name" value="Жак-Ив Кусто" name="formName"
-                    placeholder required minlength="2" maxlength="40">
+                    placeholder="Имя" required minlength="2" maxlength="40">
                 <span class="name-input-error popup__input-error"></span>
                 <input id="job-input" type="text" class="popup__input popup__input_text_job" value="Исcледователь океана"
-                    name="formJob" placeholder required minlength="2" maxlength="200">
+                    name="formJob" placeholder="О себе" required minlength="2" maxlength="200">
                 <span class="job-input-error popup__input-error"></span>
                 <input type="submit" class="popup__button" value="Сохранить" name="buttonForm">
             </form>
@@ -65,7 +68,7 @@
                 <input id="link-input" type="url" class="popup__input popup__input_text_link" value name="formLink"
                     placeholder="Ссылка на картинку" required>
                 <span class="link-input-error popup__input-error"></span>
-                <input type="submit" class="popup__button" value="Сохранить" name="buttonForm">
+                <input type="submit" class="popup__button popup__button_inactive" value="Сохранить" name="buttonForm" disabled="disbaled">
             </form>
         </div>
     </div>
@@ -77,8 +80,7 @@
             <h2 class="popup__image-title"></h2>
         </div>
     </div>
-    <script src="./script/index.js"></script>
-    <script src="./script/validate.js"></script>
+   
 </body>
 
 </html>

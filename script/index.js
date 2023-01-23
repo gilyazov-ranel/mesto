@@ -1,9 +1,9 @@
 const popupName = document.querySelector('.popup_name');
 const editingProfile = document.querySelector('.profile__info-button');
 const addingCard = document.querySelector('.profile__button');
-const formElement = document.querySelector('.popup__form');
-const nameInput = formElement.querySelector('.popup__input_text_name');
-const jobInput = formElement.querySelector('.popup__input_text_job');
+const editForm = popupName.querySelector('.popup__form');
+const nameInput = editForm.querySelector('.popup__input_text_name');
+const jobInput = editForm.querySelector('.popup__input_text_job');
 const nameInfo = document.querySelector('.profile__title');
 const jobInfo = document.querySelector('.profile__subtitle');
 
@@ -19,83 +19,56 @@ const openedImage = document.querySelector('.popup_image');
 const imagePreview = openedImage.querySelector('.popup__open-image');
 const imageTitle = openedImage.querySelector('.popup__image-title');
 
-const closeButtons = document.querySelectorAll('.popup');
+const stockPopup = document.querySelectorAll('.popup');
 
-function handleFormSubmit(evt) {
+function processingProfileForm(evt) {
   evt.preventDefault();
   nameInfo.textContent = nameInput.value;
   jobInfo.textContent = jobInput.value;
   closePopup(popupName);
 };
 
-const initialCards = [
-  {
-    name: 'Архыз',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
-  },
-  {
-    name: 'Челябинская область',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
-  },
-  {
-    name: 'Иваново',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
-  },
-  {
-    name: 'Камчатка',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
-  },
-  {
-    name: 'Холмогорский район',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
-  },
-  {
-    name: 'Байкал',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
-  }
-];
-
-function insertCards(card) { //функция добавление карточки
+function createCard(card) { //функция добавление карточки
   const cardElement = cardTemplate.querySelector('.card').cloneNode(true);
   cardElement.querySelector('.card__image').src = card.link;
   cardElement.querySelector('.card__image').alt = card.name;
   cardElement.querySelector('.card__title').textContent = card.name;
 
-  getCard(cardElement);
+  initCardListeners(cardElement);
 
   return cardElement;
 }
 
 function renderCards(cards) { //функция добавления карточки из массива
   cards.reverse().forEach(item => {
-    const newCard = insertCards(item);
-    createCard(newCard);
+    const newCard = createCard(item);
+    insertCard(newCard);
   });
 };
 
 function addCard(evt) { //функция добавления новой карточки
   evt.preventDefault();
-  const newCard = insertCards({
+  const newCard = createCard({
     name: mestoInput.value,
     link: linkInput.value
   });
   formElementMesto.reset();
-  createCard(newCard);
-
+  insertCard(newCard);
+  removeActiveButton(evt.target);
   closePopup(popupMesto);
 };
 
-function createCard(card) { //функция вставки карточки
+function insertCard(card) { //функция вставки карточки
   cardsElement.prepend(card);
 };
 
-function openPopap(element) { //функция открытия popup
-  document.addEventListener('keyup', closingKey);
+function openPopup(element) { //функция открытия popup
+  document.addEventListener('keyup', closePopupByEsc);
   element.classList.add('popup_opened');
 };
 
 function closePopup(element) { //функция закрытия popup
-  document.removeEventListener('keyup', closingKey);
+  document.removeEventListener('keyup', closePopupByEsc);
   element.classList.remove('popup_opened');
 };
 
@@ -107,7 +80,7 @@ function deleteCard(event) { //функция удаления карточки
   event.target.closest('.card').remove();
 }
 
-function getCard(card) {
+function initCardListeners(card) {
   const likeButton = card.querySelector('.card__button');// активация лайка
   likeButton.addEventListener('click', activateLike);
 
@@ -120,102 +93,41 @@ function getCard(card) {
     imagePreview.src = openImages.src;
     imagePreview.alt = openImages.src;
     imageTitle.textContent = openImageTitle.textContent;
-    openPopap(openedImage);
+    openPopup(openedImage);
   });
 };
 
 editingProfile.addEventListener('click', () => { //открываем popup "Редактировать профиль"
-  openPopap(popupName);
+  openPopup(popupName);
   nameInput.value = nameInfo.textContent;
   jobInput.value = jobInfo.textContent;
 });
 
 addingCard.addEventListener('click', () => { //открываем popup "Добавить карточку"
-  openPopap(popupMesto);
+  openPopup(popupMesto);
 });
 
-closeButtons.forEach(item => { //закрытие popup
-  const popup = item.closest('.popup');
+stockPopup.forEach(item => { //закрытие popup
   item.addEventListener('click', (evt) => {
     if (evt.target.classList.contains('popup__close') || evt.target.classList.contains('popup')) {
-      closePopup(popup);
+      closePopup(item);
     }
   });
 });
 
-function closingKey(evt) { //закрытие popup по клавише "Escape"
-  const activePopup = document.querySelector('.popup_opened');
+function closePopupByEsc(evt) { //закрытие popup по клавише "Escape"
   if (evt.key === "Escape") {
+    const activePopup = document.querySelector('.popup_opened');
     closePopup(activePopup);
   };
 };
 
-formElement.addEventListener('submit', handleFormSubmit);
+editForm.addEventListener('submit', processingProfileForm);
 formElementMesto.addEventListener('submit', addCard);
 renderCards(initialCards);
 
-function showInputError(formElement, inputElement, errrorMessage) {
-  const formError = formElement.querySelector(`.${inputElement.id}-error`);
-  inputElement.classList.add('popup__input_type_error');
-  formError.classList.add('popup__input-error_type_active');
-
-  if (inputElement.validity.typeMismatch) {
-    formError.textContent = "Введите адрес сайта."
-  } else if (inputElement.value.length === 1) {
-    formError.textContent = errrorMessage;
-  } else {
-    formError.textContent = "Вы пропустили это поле."
-  };
-};
-
-function hideInputError(formElement, inputElement) {
-  const formError = formElement.querySelector(`.${inputElement.id}-error`);
-  inputElement.classList.remove('popup__input_type_error');
-  formError.classList.remove('popup__input-error_type_active');
-};
-
-function isValid(formElement, inputElement) {
-  if (!inputElement.validity.valid) {
-    showInputError(formElement, inputElement, inputElement.validationMessage);
-  } else {
-    hideInputError(formElement, inputElement);
-  };
-};
-
-function setEventListeners(formElement) {
-  const inputList = Array.from(formElement.querySelectorAll('.popup__input'));
-  const buttonElement = formElement.querySelector('.popup__button');
-
-  
-  inputList.forEach((inputElement) => {
-    toggleButtonState(inputList, buttonElement);
-    inputElement.addEventListener('input', () => {
-      isValid(formElement, inputElement);
-      toggleButtonState(inputList, buttonElement);
-    });
-  });
-  
-};
-
-function enableValidation() {
-  const formList = Array.from(document.querySelectorAll('.popup'));
-  formList.forEach((formElement) => {
-    setEventListeners(formElement);
-  });
-};
-
-enableValidation();
-
-function hasInvalidInput(inputList) {
-  return inputList.some((inputElement) => {
-    return !inputElement.validity.valid;
-  });
-};
-
-function toggleButtonState(inputList, buttonElement) {
-  if (hasInvalidInput(inputList)) {
-    buttonElement.classList.add('popup__button_inactive');
-  } else {
-    buttonElement.classList.remove('popup__button_inactive');
-  };
-};
+function removeActiveButton(evt) {
+  const buttonElement = evt.querySelector('.popup__button');
+  buttonElement.classList.add('popup__button_inactive');
+  buttonElement.setAttribute("disabled", "disabled");
+}
