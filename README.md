@@ -13,7 +13,9 @@
   * 320px;
 2. Flexbox;
 3. CSS Grid Layout;
-4. JavaScript.
+4. JavaScript;
+5. Валидация форм;
+6. Обработка событий.
 
 
 **Github Pages**
