@@ -19,9 +19,9 @@ const openedImage = document.querySelector('.popup_image');
 const imagePreview = openedImage.querySelector('.popup__open-image');
 const imageTitle = openedImage.querySelector('.popup__image-title');
 
-const stockPopup = document.querySelectorAll('.popup');
+const storagePopups = document.querySelectorAll('.popup');
 
-function processingProfileForm(evt) {
+function processProfileForm(evt) {
   evt.preventDefault();
   nameInfo.textContent = nameInput.value;
   jobInfo.textContent = jobInput.value;
@@ -107,7 +107,7 @@ addingCard.addEventListener('click', () => { //открываем popup "Доб�
   openPopup(popupMesto);
 });
 
-stockPopup.forEach(item => { //закрытие popup
+storagePopups.forEach(item => { //закрытие popup
   item.addEventListener('click', (evt) => {
     if (evt.target.classList.contains('popup__close') || evt.target.classList.contains('popup')) {
       closePopup(item);
@@ -122,12 +122,12 @@ function closePopupByEsc(evt) { //закрытие popup по клавише "Es
   };
 };
 
-editForm.addEventListener('submit', processingProfileForm);
+editForm.addEventListener('submit', processProfileForm);
 formElementMesto.addEventListener('submit', addCard);
 renderCards(initialCards);
 
-function removeActiveButton(evt) {
-  const buttonElement = evt.querySelector('.popup__button');
+function removeActiveButton(formElement) {
+  const buttonElement = formElement.querySelector('.popup__button');
   buttonElement.classList.add('popup__button_inactive');
-  buttonElement.setAttribute("disabled", "disabled");
+  buttonElement.setAttribute("disabled", true);
 }
