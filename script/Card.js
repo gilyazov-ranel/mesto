@@ -52,7 +52,7 @@ class Card {
     };
 
     _activateLike() {
-        this._element.querySelector('.card__button').classList.toggle('card__button_active');
+        this._likeButton.classList.toggle('card__button_active');
     };
 
     _deleteCard() {

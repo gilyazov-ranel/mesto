@@ -34,7 +34,7 @@ const validatorAddCard = new FormValidator({ //валидация формы "М
 
 validatorAddCard.enableValidation();
 
-const validatorchangeName = new FormValidator({ //валидация формы "Имя" и "О себе"
+const validatorChangeName = new FormValidator({ //валидация формы "Имя" и "О себе"
   formSelector: '.popup',
   inputSelector: '.popup__input',
   submitButtonSelector: '.popup__button',
@@ -43,7 +43,7 @@ const validatorchangeName = new FormValidator({ //валидация формы 
   errorClass: 'popup__input-error_type_active'
 }, '.popup_name');
 
-validatorchangeName.enableValidation();
+validatorChangeName.enableValidation();
 
 function processProfileForm(evt) {
   evt.preventDefault();
@@ -59,7 +59,6 @@ function insertCard(card) { //функция вставки карточки
 function openPopup(element) { //функция открытия popup
   document.addEventListener('keyup', closePopupByEsc);
   element.classList.add('popup_opened');
-  validatorAddCard.inactiveButton();
 };
 
 function closePopup(element) { //функция закрытия popup
@@ -75,6 +74,7 @@ editingProfile.addEventListener('click', () => { //открываем popup "Р�
 
 addingCard.addEventListener('click', () => { //открываем popup "Добавить карточку"
   openPopup(popupMesto);
+  validatorAddCard.inactiveButton();
 });
 
 storagePopups.forEach(item => { //закрытие popup
@@ -112,7 +112,7 @@ function addCard(evt) { //функция добавления новой кар�
     name: mestoInput.value,
     link: linkInput.value
   };
-
+  
   formElementMesto.reset();
   insertCard(createCard(newCard));
   closePopup(popupMesto);
