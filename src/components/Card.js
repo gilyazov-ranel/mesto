@@ -1,7 +1,3 @@
-const openedImage = document.querySelector('.popup_image');
-const imagePreview = openedImage.querySelector('.popup__open-image');
-const imageTitle = openedImage.querySelector('.popup__image-title');
-
 class Card {
 
     constructor(data, templateSelector, handleCardClick) {
@@ -60,4 +56,4 @@ class Card {
     };
 };
 
-export { Card };
+export default Card;
