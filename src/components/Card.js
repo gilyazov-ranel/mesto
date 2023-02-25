@@ -35,7 +35,7 @@ class Card {
 
     _initCardListeners() {
         this._likeButton.addEventListener('click', () => {
-            this._activateLike();
+            this._toggleLike();
         });
 
         this._deleteButton.addEventListener('click', () => {
@@ -47,7 +47,7 @@ class Card {
         });
     };
 
-    _activateLike() {
+    _toggleLike() {
         this._likeButton.classList.toggle('card__button_active');
     };
 

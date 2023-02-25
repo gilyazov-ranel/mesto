@@ -25,6 +25,15 @@ const initialCards = [
   }
 ];
 
+const config = {
+  formSelector: '.popup__form',
+  inputSelector: '.popup__input',
+  submitButtonSelector: '.popup__button',
+  inactiveButtonClass: 'popup__button_inactive',
+  inputErrorClass: 'popup__input_type_error',
+  errorClass: 'popup__input-error_type_active'
+}
+
 const popupName = document.querySelector('.popup_name');
 const editingProfile = document.querySelector('.profile__info-button');
 const addingCard = document.querySelector('.profile__button');
@@ -36,25 +45,18 @@ const jobInput = editForm.querySelector('.popup__input_text_job');
 const nameInfo = document.querySelector('.profile__title');
 const jobInfo = document.querySelector('.profile__subtitle');
 
-const openedImage = document.querySelector('.popup_image');
-const imagePreview = openedImage.querySelector('.popup__open-image');
-const imageTitle = openedImage.querySelector('.popup__image-title');
-
 const popupMesto = document.querySelector('.popup_mesto');
-const cardsElement = document.querySelector('.cards');
 
 export {
   initialCards,
   popupName,
   editingProfile,
   addingCard,
-  nameInput,
-  jobInput,
   nameInfo,
   jobInfo,
   popupMesto,
-  cardsElement,
-  openedImage,
-  imagePreview,
-  imageTitle,
+  nameInput,
+  jobInput,
+  config,
 };  
+

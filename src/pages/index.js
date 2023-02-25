@@ -7,8 +7,9 @@ import {
   nameInfo,
   jobInfo,
   popupMesto,
-  cardsElement,
-  openedImage
+  nameInput,
+  jobInput,
+  config,
 } from '../utils/constants.js';
 import FormValidator from '../components/FormValidator.js';
 import Section from '../components/Section.js';
@@ -17,35 +18,21 @@ import PopupWithForm from '../components/PopupWithForm.js';
 import UserInfo from '../components/UserInfo.js';
 import '../pages/index.css';
 
-const validatorAddCard = new FormValidator({ //валидация формы "Место"
-  formSelector: '.popup',
-  inputSelector: '.popup__input',
-  submitButtonSelector: '.popup__button',
-  inactiveButtonClass: 'popup__button_inactive',
-  inputErrorClass: 'popup__input_type_error',
-  errorClass: 'popup__input-error_type_active'
-}, '.popup_mesto');
+const validatorAddCard = new FormValidator(config, popupMesto);
 
 validatorAddCard.enableValidation();
 
-const validatorChangeName = new FormValidator({ //валидация формы "Имя" и "О себе"
-  formSelector: '.popup',
-  inputSelector: '.popup__input',
-  submitButtonSelector: '.popup__button',
-  inactiveButtonClass: 'popup__button_inactive',
-  inputErrorClass: 'popup__input_type_error',
-  errorClass: 'popup__input-error_type_active'
-}, '.popup_name');
+const validatorChangeName = new FormValidator(config, popupName);
 
 validatorChangeName.enableValidation();
 
-const previewPopup = new PopupWithImage(openedImage);// Открываем popup "Просмотр изображения"
+const previewPopup = new PopupWithImage('.popup_image');// Открываем popup "Просмотр изображения"
 previewPopup.setEventListeners();
 
-const eventNamePopup = new PopupWithForm(popupName, processProfileForm);
+const eventNamePopup = new PopupWithForm('.popup_name', processProfileForm);
 eventNamePopup.setEventListeners();
 
-const eventMestoPopup = new PopupWithForm(popupMesto, addCard);
+const eventMestoPopup = new PopupWithForm('.popup_mesto', addCard);
 eventMestoPopup.setEventListeners();
 
 const userName = new UserInfo({
@@ -53,24 +40,22 @@ const userName = new UserInfo({
   job: jobInfo
 });
 
-function processProfileForm(items) {
-  nameInfo.textContent = items.formName;
-  jobInfo.textContent = items.formJob;
+function processProfileForm() {
+  userName.setUserInfo(nameInput.value, jobInput.value)
   eventNamePopup.close();
-};
-
-function insertCard(card) { //функция вставки карточки
-  cardsElement.prepend(card);
 };
 
 editingProfile.addEventListener('click', () => { //открываем popup "Редактировать профиль"
   eventNamePopup.open();
-  userName.setUserInfo();// здес техтсонтент....
+  const { name, job } = userName.getUserInfo();
+  nameInput.value = name;
+  jobInput.value = job;
+  validatorChangeName.resetValidation();
 });
 
 addingCard.addEventListener('click', () => { //открываем popup "Добавить карточку"
   eventMestoPopup.open();
-  validatorAddCard.inactiveButton();
+  validatorAddCard.resetValidation();
 });
 
 function handleCardClick(name, link) {
@@ -86,9 +71,7 @@ function createCard(item) {
 const renderingItems = new Section({
   items: initialCards,
   renderer: (item) => {
-    const card = new Card(item, '#card', handleCardClick);
-    const cardElement = card.createCard();
-    renderingItems.addItem(cardElement);
+    renderingItems.addItem(createCard(item));
   }
 }, '.cards');
 
@@ -97,7 +80,7 @@ function addCard(item) { //функция добавления новой кар
     name: item.formMesto,
     link: item.formLink
   };
-  insertCard(createCard(newCard));
+  renderingItems.prependItem(createCard(newCard));
   eventMestoPopup.close();
 };
 

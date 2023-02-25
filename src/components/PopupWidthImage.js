@@ -1,11 +1,10 @@
 import Popup from './Popup.js';
-import { imagePreview, imageTitle } from '../utils/constants.js';
 
 class PopupWithImage extends Popup {
     open(name, link) {
-        imagePreview.src = link;
-        imagePreview.alt = name;
-        imageTitle.textContent = name;
+        this._imagePreview.src = link;
+        this._imagePreview.alt = name;
+        this._imageTitle.textContent = name;
         super.open();
     };
 };
