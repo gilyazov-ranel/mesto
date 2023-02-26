@@ -13,7 +13,7 @@ import {
 } from '../utils/constants.js';
 import FormValidator from '../components/FormValidator.js';
 import Section from '../components/Section.js';
-import PopupWithImage from '../components/PopupWidthImage.js';
+import PopupWithImage from '../components/PopupWithImage.js';
 import PopupWithForm from '../components/PopupWithForm.js';
 import UserInfo from '../components/UserInfo.js';
 import '../pages/index.css';
@@ -40,8 +40,8 @@ const userName = new UserInfo({
   job: jobInfo
 });
 
-function processProfileForm() {
-  userName.setUserInfo(nameInput.value, jobInput.value)
+function processProfileForm(userData) {
+  userName.setUserInfo(userData);
   eventNamePopup.close();
 };
 
