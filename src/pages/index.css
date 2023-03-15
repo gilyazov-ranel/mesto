@@ -11,12 +11,12 @@
 
 @import url(../blocks/profile/profile.css);
 @import url(../blocks/profile/__avatar/profile__avatar.css);
-@import url(../blocks/profile/__shell/profile__shell.css);
 @import url(../blocks/profile/__button/profile__button.css);
 @import url(../blocks/profile/__info/profile__info.css);
 @import url(../blocks/profile/__title/profile__title.css);
 @import url(../blocks/profile/__subtitle/profile__subtitle.css);
 @import url(../blocks/profile/__info-button/profile__info-button.css);
+@import url(../blocks/profile/__shell/profile__shell.css);
 @import url(../blocks/cards/cards.css);
 
 @import url(../blocks/card/card.css);
