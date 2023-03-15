@@ -1,17 +1,27 @@
 class UserInfo {
-    constructor({ name, job }) {
+    constructor({ name, about, avatar }) {
         this._name = name;
-        this._job = job;
+        this._about = about;
+        this._avatar = avatar;
     };
 
     getUserInfo() {
-        return { name: this._name.textContent, job: this._job.textContent }
+        return { name: this._name.textContent, about: this._about.textContent }
     };
 
     setUserInfo(data) {
-        this._name.textContent = data.formName;
-        this._job.textContent = data.formJob;
+        this._name.textContent = data.name;
+        this._about.textContent = data.about;
     };
+
+    installAvatar(data) {
+        this._avatar.src = data.avatar;
+    }
+
+    linkAvatar() {
+        return {avatar: this._avatar.src}
+    }
+
 
 };
 

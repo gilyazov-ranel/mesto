@@ -25,11 +25,16 @@ class PopupWithForm extends Popup {
                 this._submitForm(data);
             });
     };
-
+    
+    closePopupAvatar() {
+        super.close();
+    }
     close() {
         super.close();
         this._popupForm.reset();
     };
+
+
 };
 
 export default PopupWithForm;

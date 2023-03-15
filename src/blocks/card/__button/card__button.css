@@ -8,9 +8,9 @@
     border: 0;
     width: 22px;
     height: 19px;
-    margin-right: 6px;
     cursor: pointer;
     background-color: rgba(0, 0, 0, 0);
+    grid-column: 3;
 }
 
 .card__button:hover {

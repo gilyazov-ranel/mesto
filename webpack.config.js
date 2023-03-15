@@ -57,6 +57,6 @@ module.exports = {
             template: './src/index.html'
         }),
         new MiniCssExtractPlugin()
-    ]
-
+    ],
+    devtool:  'eval-source-map'
 }

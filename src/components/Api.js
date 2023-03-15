@@ -1,0 +1,83 @@
+export default class Api {
+    constructor(basePath, token) {
+        this._basePath = basePath;
+        this._token = token;
+    }
+
+    _getJson(res) {
+        if (res.ok) {
+            return res.json();
+        }
+        return Promise.reject(`Ошибка: ${res.status}`);
+    }
+
+    _getHeaders() {
+        return {
+            "Content-Type": "application/json",
+            authorization: this._token,
+        };
+    }
+
+    getCard() {
+        return fetch(`${this._basePath}/cards`, {
+            headers: {
+                authorization: this._token
+            }
+        }).then(this._getJson);
+    };
+
+    editingProfiles(item) {
+        return fetch(`${this._basePath}/users/me`, {
+            method: 'PATCH',
+            headers: this._getHeaders(),
+            body: JSON.stringify(item)
+        }).then(this._getJson);
+    }
+
+    instalAvatar(item) {
+        return fetch(`${this._basePath}/users/me/avatar`, {
+            method: 'PATCH',
+            headers: this._getHeaders(),
+            body: JSON.stringify(item)
+        }).then(this._getJson);
+    }
+
+    createCard(item) {
+        return fetch(`${this._basePath}/cards`, {
+            method: 'POST',
+            headers: this._getHeaders(),
+            body: JSON.stringify(item)
+        }).then(this._getJson);
+    }
+
+    deleteCard(cardId) {
+        return fetch(`${this._basePath}/cards/${cardId}`, {
+            method: 'DELETE',
+            headers: this._getHeaders()
+        }).then(this._getJson);
+    }
+
+    getCurrentUser() {
+        return fetch(`${this._basePath}/users/me`, {
+            headers: this._getHeaders(),
+        }).then(this._getJson);
+    }
+
+    likeCard(cardId) {
+        return fetch(`${this._basePath}/cards/${cardId}/likes`, {
+            method: 'PUT',
+            headers: this._getHeaders(),
+        }).then(this._getJson);
+    }
+
+    removeLike(cardId) {
+        return fetch(`${this._basePath}/cards/${cardId}/likes`, {
+            method: 'DELETE',
+            headers: this._getHeaders(),
+        }).then(this._getJson);
+    }
+
+}
+
+
+
