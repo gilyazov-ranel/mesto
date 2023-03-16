@@ -2,7 +2,7 @@ class Popup {
     constructor(popupSelector) {
         this._popup = document.querySelector(popupSelector);
         this._handleEscClose = this._handleEscClose.bind(this);
-        this._saveButtonValue = this._popup.querySelector('.popup__button');
+        
     };
 
     open() {
@@ -29,14 +29,7 @@ class Popup {
         });
     };
 
-    waitDownloads(isLoading) {
-        if (isLoading) {
-            this._saveButtonValue.value = "Сохранение..."
-        } else {
-            this._saveButtonValue.value = "Сохранить"
-        }
-        
-    }
+    
 
 };
 

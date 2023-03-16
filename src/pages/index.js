@@ -39,6 +39,7 @@ Promise.all([api.getCard(), api.getCurrentUser()])
     userName.setUserInfo(user);
     userName.installAvatar(user);
     cardContainer.renderItems(items);
+    editAvatar.value = user.avatar;
   })
   .catch((err) => {
     console.log(err);
@@ -73,14 +74,14 @@ const userName = new UserInfo({
 
 function processProfileForm(user) { //функция редактирования блока "О себе"
   eventNamePopup.waitDownloads(true);
-  api.editingProfiles(user).then((user) => {
+  api.editProfiles(user).then((user) => {
     userName.setUserInfo(user);
+    eventNamePopup.close();
   })
-  .catch((err) => {
-    console.log(err);
-  })
-  .finally(() => {eventNamePopup.waitDownloads(false)})
-  eventNamePopup.close();
+    .catch((err) => {
+      console.log(err);
+    })
+    .finally(() => { eventNamePopup.waitDownloads(false) })
 };
 
 function addCard(item) { //функция добавления новой карточки
@@ -91,23 +92,24 @@ function addCard(item) { //функция добавления новой кар
   eventMestoPopup.waitDownloads(true);
   api.createCard(newCard).then((item) => {
     cardContainer.prependItem(createCard(item));
+    eventMestoPopup.resetInput()
+    eventMestoPopup.close();
   }).catch((err) => {
     console.log(err);
   })
-  .finally(() => {eventMestoPopup.waitDownloads(false)});
-  eventMestoPopup.close();
+    .finally(() => { eventMestoPopup.waitDownloads(false) });
 };
 
 function changeAvatar(item) { //функция изменения аватарки
   eventAvatarPopup.waitDownloads(true);
   api.instalAvatar(item).then((item) => {
     userName.installAvatar(item);
+    eventAvatarPopup.close();
   })
-  .catch((err) => {
-    console.log(err);
-  })
-  .finally(() => {eventAvatarPopup.waitDownloads(false)});
-  eventAvatarPopup.closePopupAvatar();
+    .catch((err) => {
+      console.log(err);
+    })
+    .finally(() => { eventAvatarPopup.waitDownloads(false) });
 }
 
 editingProfile.addEventListener('click', () => { //открываем popup "Редактировать профиль"
@@ -125,8 +127,6 @@ addingCard.addEventListener('click', () => { //открываем popup "Доб�
 
 buttonEditAvatar.addEventListener('click', () => { //открываем Popup "Редактирование карточки"
   eventAvatarPopup.open();
-  const { avatar } = userName.linkAvatar();
-  editAvatar.value = avatar;
   validatorLinkAvatar.resetValidation();
 })
 
@@ -141,24 +141,33 @@ function createCard(item) {
       handleLikeClick: (cardId) => {
         if (!card.checkLike()) {
           api.likeCard(cardId).then((item) => {
-            card.counterLike(item.likes)
+            card.counterLike(item.likes);
+            card.toggleLike();
           })
-          .catch((err) => {
-            console.log(err);
-          })
+            .catch((err) => {
+              console.log(err);
+            })
         } else if (card.checkLike()) {
           api.removeLike(cardId).then((item) => {
             card.counterLike(item.likes);
+            card.toggleLike();
           })
-          .catch((err) => {
-            console.log(err);
-          })
+            .catch((err) => {
+              console.log(err);
+            })
         }
       },
-      deleteOpenPopup: (card, id) => {
-        popupDelete.open(card, id);
-      }
-    },
+      deleteOpenPopup: (cards, id) => {
+        popupDelete.open(cards, id);
+        popupDelete.pressYesButton((cards, id) => {
+          api.deleteCard(id).then(() => {
+            card.handleDeleteCard(cards);
+            popupDelete.close();
+          }).catch((err) => {
+            console.log(err);
+          })
+      })
+    }},
     '#card',
     currentUserId,
   );
@@ -168,13 +177,5 @@ function createCard(item) {
   return cardElement;
 };
 
-function deleteCard(card, id) {
-  api.deleteCard(id).then(() => {
-    card.remove();
-  }).catch((err) => {
-    console.log(err);
-  });
-}
-
-const popupDelete = new PopupWithSubmit('.popup_delete', deleteCard);
-popupDelete.setEventListeners();
+const popupDelete = new PopupWithSubmit('.popup_delete');
+popupDelete.setEventListeners()

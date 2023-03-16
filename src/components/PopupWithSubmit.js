@@ -2,9 +2,8 @@ import Popup from './Popup.js';
 
 class PopupWithSubmit extends Popup {
 
-    constructor(popup, submitForm) {
+    constructor(popup) {
         super(popup);
-        this._submitForm = submitForm;
         this._deletebutton = this._popup.querySelector('.popup__button-avatar');
     }
 
@@ -18,9 +17,12 @@ class PopupWithSubmit extends Popup {
         super.setEventListeners();
         this._deletebutton.addEventListener("click", (evt) => {
             evt.preventDefault();
-            this._submitForm(this._card, this._id);
-            this.close();
+            this.clickButton(this._card, this._id)
         })
+    }
+
+    pressYesButton(func) {
+       this.clickButton = func;
     }
 
 }

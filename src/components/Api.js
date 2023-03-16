@@ -2,6 +2,9 @@ export default class Api {
     constructor(basePath, token) {
         this._basePath = basePath;
         this._token = token;
+        this._headers =  {
+            authorization: this._token
+        }
     }
 
     _getJson(res) {
@@ -20,13 +23,11 @@ export default class Api {
 
     getCard() {
         return fetch(`${this._basePath}/cards`, {
-            headers: {
-                authorization: this._token
-            }
+            headers: this._headers
         }).then(this._getJson);
     };
 
-    editingProfiles(item) {
+    editProfiles(item) {
         return fetch(`${this._basePath}/users/me`, {
             method: 'PATCH',
             headers: this._getHeaders(),

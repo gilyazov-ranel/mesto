@@ -52,7 +52,6 @@ class Card {
     _initCardListeners() {
         this.likeButton.addEventListener('click', () => {
             this._handleLikeClick(this._id);
-            this._toggleLike();
         });
 
         this._deleteButton.addEventListener('click', () => {
@@ -64,7 +63,7 @@ class Card {
         });
     };
 
-    _toggleLike() {
+    toggleLike() {
         this.likeButton.classList.toggle('card__button_active');
     };
 
@@ -84,6 +83,11 @@ class Card {
         })
 
     };
+
+    handleDeleteCard(card) {
+        card.remove();
+      }
+    
 }
 
 export default Card;

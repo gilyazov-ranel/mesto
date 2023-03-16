@@ -1,8 +1,8 @@
 class UserInfo {
-    constructor({ name, about, avatar }) {
-        this._name = name;
-        this._about = about;
-        this._avatar = avatar;
+    constructor(item) {
+        this._name = item.name;
+        this._about = item.about;
+        this._avatar = item.avatar;
     };
 
     getUserInfo() {
