@@ -1,8 +1,8 @@
 class UserInfo {
-    constructor(item) {
-        this._name = item.name;
-        this._about = item.about;
-        this._avatar = item.avatar;
+    constructor({name, about, avatar}) {
+        this._name = document.querySelector(name);
+        this._about = document.querySelector(about);
+        this._avatar = document.querySelector(avatar);
     };
 
     getUserInfo() {

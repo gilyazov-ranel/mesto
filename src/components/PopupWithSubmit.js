@@ -4,12 +4,12 @@ class PopupWithSubmit extends Popup {
 
     constructor(popup) {
         super(popup);
-        this._deletebutton = this._popup.querySelector('.popup__button-avatar');
+        this._deletebutton = this._popup.querySelector('.popup__button-delete');
     }
 
-    open(card, id) {
+    open(id) {
         super.open();
-        this._card = card;
+        // this._card = card;
         this._id = id;
     }
 
@@ -17,7 +17,7 @@ class PopupWithSubmit extends Popup {
         super.setEventListeners();
         this._deletebutton.addEventListener("click", (evt) => {
             evt.preventDefault();
-            this.clickButton(this._card, this._id)
+            this.clickButton(this._id)
         })
     }
 

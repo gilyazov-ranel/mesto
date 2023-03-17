@@ -3,13 +3,10 @@ import {
   popupName,
   editingProfile,
   addingCard,
-  nameInfo,
-  jobInfo,
   popupMesto,
   nameInput,
   jobInput,
   config,
-  avatarImg,
   editAvatar,
   popupAvatar,
   buttonEditAvatar,
@@ -67,9 +64,9 @@ const eventAvatarPopup = new PopupWithForm('.popup_avatar', changeAvatar)
 eventAvatarPopup.setEventListeners();
 
 const userName = new UserInfo({
-  name: nameInfo,
-  about: jobInfo,
-  avatar: avatarImg
+  name: '.profile__title',
+  about: '.profile__subtitle',
+  avatar: '.profile__avatar'
 });
 
 function processProfileForm(user) { //функция редактирования блока "О себе"
@@ -92,7 +89,6 @@ function addCard(item) { //функция добавления новой кар
   eventMestoPopup.waitDownloads(true);
   api.createCard(newCard).then((item) => {
     cardContainer.prependItem(createCard(item));
-    eventMestoPopup.resetInput()
     eventMestoPopup.close();
   }).catch((err) => {
     console.log(err);
@@ -157,11 +153,11 @@ function createCard(item) {
             })
         }
       },
-      deleteOpenPopup: (cards, id) => {
-        popupDelete.open(cards, id);
-        popupDelete.pressYesButton((cards, id) => {
+      deleteOpenPopup: (id) => {
+        popupDelete.open(id);
+        popupDelete.pressYesButton((id) => {
           api.deleteCard(id).then(() => {
-            card.handleDeleteCard(cards);
+            card.handleDeleteCard();
             popupDelete.close();
           }).catch((err) => {
             console.log(err);

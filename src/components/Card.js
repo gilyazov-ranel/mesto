@@ -55,7 +55,7 @@ class Card {
         });
 
         this._deleteButton.addEventListener('click', () => {
-            this._deleteOpenPopup(this._card, this._id)
+            this._deleteOpenPopup(this._id)
         });
 
         this._cardImage.addEventListener('click', () => {
@@ -84,8 +84,8 @@ class Card {
 
     };
 
-    handleDeleteCard(card) {
-        card.remove();
+    handleDeleteCard() {
+        this._card.remove();
       }
     
 }

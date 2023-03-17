@@ -38,7 +38,6 @@ const popupName = document.querySelector('.popup_name');
 const popupAvatar = document.querySelector('.popup_avatar')
 const editingProfile = document.querySelector('.profile__info-button');
 const addingCard = document.querySelector('.profile__button');
-const avatarImg = document.querySelector('.profile__avatar');
 const buttonEditAvatar = document.querySelector('.profile__shell');
 
 const editForm = popupName.querySelector('.popup__form');
@@ -48,22 +47,16 @@ const jobInput = editForm.querySelector('.popup__input_text_job');
 const formAvatar = popupAvatar.querySelector('.popup__form');
 const editAvatar = formAvatar.querySelector('.popup__input_text_link')
 
-const nameInfo = document.querySelector('.profile__title');
-const jobInfo = document.querySelector('.profile__subtitle');
-
 const popupMesto = document.querySelector('.popup_mesto');
 
 export {
   popupName,
   editingProfile,
   addingCard,
-  nameInfo,
-  jobInfo,
   popupMesto,
   nameInput,
   jobInput,
   config,
-  avatarImg,
   editAvatar,
   popupAvatar,
   buttonEditAvatar,

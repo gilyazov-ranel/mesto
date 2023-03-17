@@ -7,6 +7,7 @@ class PopupWithForm extends Popup {
         this._inputs = this._popup.querySelectorAll('.popup__input');
         this._popupForm = this._popup.querySelector('.popup__form');
         this._saveButtonValue = this._popup.querySelector('.popup__button');
+        this._originalButtonName = this._saveButtonValue.value;
     };
 
     _getInputValues() {
@@ -27,17 +28,16 @@ class PopupWithForm extends Popup {
             });
     };
     
-    resetInput() {
+    close() {
+        super.close()
         this._popupForm.reset();
     };
 
     waitDownloads(isLoading) {
         if (isLoading) {
             this._saveButtonValue.value = "Сохранение..."
-        } else if (this._popup.classList.contains('popup_mesto'))  {
-            this._saveButtonValue.value = "Создать"
         } else {
-            this._saveButtonValue.value = "Сохранить"
+            this._saveButtonValue.value = this._originalButtonName;
         }
         
     }
